@@ -33,5 +33,6 @@ RSpec.describe UsersController do
     expect { create_valid_user }.to change { User.count }.by(1)
     expect(create_valid_user).to redirect_to(user_path(assigns(:user).id))
     expect(response.status).to eq(302)
+    expect(session[:user_id]).not_to be_nil
   end
 end

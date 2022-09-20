@@ -12,6 +12,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html do
+          login(@user)
+          remember(@user)
           flash[:success] = "Welcome #{@user.name}!"
           redirect_to @user
         end
