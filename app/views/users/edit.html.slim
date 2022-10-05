@@ -1,0 +1,10 @@
+- content_for :title do
+  | Edit
+
+h1 Update your profile
+
+= render 'edit_form'
+
+.edit-gravatar
+  = gravatar_for @user
+  a(href='https://gravatar.com/emails' target='_blank') change

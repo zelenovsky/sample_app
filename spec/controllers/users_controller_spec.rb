@@ -23,6 +23,10 @@ RSpec.describe UsersController do
 
   let(:create_invalid_user) { post :create, params: invalid_user_params, format: :turbo_stream }
   let(:create_valid_user) { post :create, params: valid_user_params, format: :html }
+  subject(:get_edit_user) do
+    user = create(:user)
+    get :edit, params: { id: user.id }
+  end
 
   specify 'invalid signup' do
     expect { create_invalid_user }.not_to change { User.count }
@@ -34,5 +38,15 @@ RSpec.describe UsersController do
     expect(create_valid_user).to redirect_to(user_path(assigns(:user).id))
     expect(response.status).to eq(302)
     expect(session[:user_id]).not_to be_nil
+  end
+
+  it 'should redirect edit when not logged in' do
+    expect(get_edit_user).to redirect_to(login_path)
+  end
+
+  it 'should redirect edit when logged in as wrong user' do
+    another_user = create(:another_user)
+    login(another_user)
+    expect(get_edit_user).to redirect_to(root_path)
   end
 end
