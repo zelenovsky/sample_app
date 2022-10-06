@@ -20,4 +20,10 @@ FactoryBot.define do
     email { 'foo@invalid' }
     password { 'foo' }
   end
+
+  factory :faker_user, class: User do
+    name { FFaker::Name.name }
+    email { FFaker::Internet.unique.email }
+    password { FFaker::Internet.password }
+  end
 end

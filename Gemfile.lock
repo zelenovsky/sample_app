@@ -95,6 +95,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    ffaker (2.21.0)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -104,7 +105,7 @@ GEM
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.5.11)
-    irb (1.4.1)
+    irb (1.4.2)
       reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -131,6 +132,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-x86_64-darwin)
       racc (~> 1.4)
+    pagy (5.10.1)
+      activesupport
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -258,8 +261,10 @@ DEPENDENCIES
   capybara
   debug
   factory_bot_rails
+  ffaker
   importmap-rails
   jbuilder
+  pagy
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
   rails-controller-testing

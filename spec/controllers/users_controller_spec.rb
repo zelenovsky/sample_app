@@ -49,4 +49,8 @@ RSpec.describe UsersController do
     login(another_user)
     expect(get_edit_user).to redirect_to(root_path)
   end
+
+  it 'should redirect index when not logged in' do
+    expect(get :index).to redirect_to(login_path)
+  end
 end
