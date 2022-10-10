@@ -6,3 +6,14 @@ aside
     h1
       = gravatar_for @user
       = @user.name
+
+main
+  - if @microposts.any?
+    h2
+      | Microposts 
+      = @user.microposts.count
+    ol
+      - @microposts.each do |micropost|
+        li
+          = render 'microposts/micropost', micropost: micropost
+    == pagy_nav(@pagy)

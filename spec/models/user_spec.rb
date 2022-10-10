@@ -1,5 +1,5 @@
 RSpec.describe User do
-  let(:user) { described_class.new(name: 'Example User', email: 'user@example.com', password: 'foobar', password_confirmation: 'foobar') }
+  let(:user) { create(:user) }
 
   it 'should be valid' do
     expect(user).to be_valid

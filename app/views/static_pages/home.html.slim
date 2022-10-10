@@ -1,7 +1,19 @@
 - content_for :title do
   | Home
 
-= link_to 'Sign up now!', signup_path
-h1 Home
-p Get help on the Ruby on Rails Tutorial at the
-= link_to image_tag('logo.svg', alt: 'Logo'), 'https://rubyonrails.org/'
+- if logged_in?
+  aside
+    = link_to gravatar_for(current_user, size: 50), current_user
+    h1= current_user.name
+    = link_to 'view my profile', current_user
+    div= pluralize(current_user.microposts.count, 'micropost')
+
+    = form_with model: Micropost, html: { multipart: true } do |f|
+      = f.text_area :content, placeholder: 'Type something'
+      = f.file_field :picture, accept: 'image/jpeg, image/gif, image/png'
+      = f.submit 'Post'
+- else
+  = link_to 'Sign up now!', signup_path
+  h1 Home
+  p Get help on the Ruby on Rails Tutorial at the
+  = link_to image_tag('logo.svg', alt: 'Logo'), 'https://rubyonrails.org/'

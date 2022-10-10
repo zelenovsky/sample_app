@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
+  has_many :microposts, dependent: :destroy
+
   attr_accessor :remember_token
 
   has_secure_password
@@ -8,7 +10,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
 
-  before_save { self.email = email.downcase }
+  before_save :downcase_email
 
   class << self
     def digest(string)
@@ -33,5 +35,13 @@ class User < ApplicationRecord
   def authenticated?(remember_token)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def downcase_email
+    self.email = email.downcase
+  end
+
+  def feed
+    Micropost.where('user_id = ?', id)
   end
 end

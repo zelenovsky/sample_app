@@ -50,6 +50,9 @@ gem "sassc-rails"
 
 gem 'pagy'
 
+gem 'carrierwave'
+gem 'mini_magick'
+
 group :development, :test do
   gem 'ffaker'
   gem 'factory_bot_rails'
