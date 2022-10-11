@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# Users
 User.create!(
   name: 'Artem',
   email: 'deeloyy@gmail.com',
@@ -13,7 +14,6 @@ User.create!(
   password_confirmation: 'foobar',
   admin: true
 )
-
 99.times do |n|
   name = FFaker::Name.name
   email = FFaker::Internet.unique.email
@@ -26,9 +26,17 @@ User.create!(
   )
 end
 
+# Microposts
 users = User.order(:created_at).take(6)
-
 50.times do
   content = FFaker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content) }
 end
+
+# Relations
+users = User.all
+user = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

@@ -6,6 +6,8 @@ aside
     h1
       = gravatar_for @user
       = @user.name
+    = render 'follow_form' if logged_in?
+    = render 'shared/stats'
 
 main
   - if @microposts.any?

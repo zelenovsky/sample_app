@@ -8,10 +8,17 @@
     = link_to 'view my profile', current_user
     div= pluralize(current_user.microposts.count, 'micropost')
 
+    = render 'shared/stats'
+
     = form_with model: Micropost, html: { multipart: true } do |f|
       = f.text_area :content, placeholder: 'Type something'
       = f.file_field :picture, accept: 'image/jpeg, image/gif, image/png'
       = f.submit 'Post'
+
+  h2 Feed
+  - @feed.each do |micropost|
+    = render 'microposts/micropost', micropost: micropost
+  == pagy_nav(@pagy)
 - else
   = link_to 'Sign up now!', signup_path
   h1 Home
